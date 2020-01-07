@@ -17,6 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::namespace('API')->group(function(){
-    Route::get('proprietarios', 'ProprietarioController@index')->name('proprietarios');
+Route::namespace('API')->name('api.')->group(function(){
+    Route::prefix('/proprietarios')->group(function(){
+
+        Route::get('/', 'ProprietarioController@index')->name('proprietarios');
+        Route::get('/{id}', 'ProprietarioController@show')->name('single_proprietarios');
+
+        Route::post('/', 'ProprietarioController@store')->name('store_proprietarios');
+        Route::put('/{id}', 'ProprietarioController@update')->name('update_proprietarios');
+    });
 });
