@@ -25,5 +25,7 @@ Route::namespace('API')->name('api.')->group(function(){
 
         Route::post('/', 'ProprietarioController@store')->name('store_proprietarios');
         Route::put('/{id}', 'ProprietarioController@update')->name('update_proprietarios');
+
+        Route::delete('/{id}', 'ProprietarioController@delete')->name('delete_proprietarios');
     });
 });

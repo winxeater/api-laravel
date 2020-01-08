@@ -22,7 +22,9 @@ class ProprietarioController extends Controller
     }
 
     public function show(Proprietario $id){
-        $data = ['data' => $id];
+        if(! $proprietario) return response()->json(ApiError::errorMessage('Proprietario não encontrado!', 4040), 404);
+        
+        $data = ['data' => $proprietario];
 
         return response()->json($data);
     }
@@ -52,9 +54,22 @@ class ProprietarioController extends Controller
             return response()->json($return, 201);
         }catch(\Exception $e){
             if(config('app.debug')){
-                return response()->json(ApiError::errorMessage($e->getMessage(), 1010));
+                return response()->json(ApiError::errorMessage($e->getMessage(), 1011));
             }
-            return response()->json(ApiError::errorMessage('Error', 1010));
+            return response()->json(ApiError::errorMessage('Error', 1011));
+        }
+    }
+
+    public function delete(Proprietario $id){
+        try{
+            $id->delete();
+            
+            return response()->json(['data' => ['msg' => 'Proprietario: ' . $id->name . ' removido!']], 200);
+        }catch(\Exception $e){
+            if(config('app.debug')){
+                return response()->json(ApiError::errorMessage($e->getMessage(), 1012));
+            }
+            return response()->json(ApiError::errorMessage('Error', 1012));
         }
     }
 }
