@@ -11,6 +11,14 @@
 |
 */
 
+
+Route::get('/proprietarios', ['as' => 'proprietarios.index', 'uses' => 'Proprietario\ProprietarioController@index']);
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
+
+Route::post('/login', 'Auth\AuthController@login')->name('auth.login.do');
+
+
+    

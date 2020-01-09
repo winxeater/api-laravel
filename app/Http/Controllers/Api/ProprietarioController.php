@@ -64,7 +64,7 @@ class ProprietarioController extends Controller
         try{
             $id->delete();
             
-            return response()->json(['data' => ['msg' => 'Proprietario: ' . $id->name . ' removido!']], 200);
+            return response()->json(ApiError::errorMessage('Proprietario ' . $id->name . ' removido!', 1012), 200);
         }catch(\Exception $e){
             if(config('app.debug')){
                 return response()->json(ApiError::errorMessage($e->getMessage(), 1012));
